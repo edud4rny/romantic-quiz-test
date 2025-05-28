@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const questions = [
         {
             id: "name",
-            question: "Para empezar, ¿cómo te llamas, estrella?",
+            question: "Para empezar, ¿cómo te llamas?",
             type: "text_input", // Special type for name input
             placeholder: "Escribe tu nombre aquí"
         },
