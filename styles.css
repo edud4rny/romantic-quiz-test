@@ -1,0 +1,318 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Romantic gradient */
+    color: #333;
+    overflow-x: hidden;
+}
+
+.quiz-container, .loading-container, .result-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    position: relative; /* For absolute positioned hearts */
+}
+
+/* Decorative hearts */
+.quiz-container::before, .quiz-container::after {
+    content: '\f004'; /* Font Awesome heart icon */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: rgba(255, 99, 132, 0.3);
+    position: absolute;
+    font-size: 5rem;
+    z-index: -1;
+    opacity: 0.5;
+}
+.quiz-container::before {
+    top: -20px;
+    left: -20px;
+    transform: rotate(-15deg);
+}
+.quiz-container::after {
+    bottom: -30px;
+    right: -25px;
+    transform: rotate(15deg);
+    font-size: 6rem;
+}
+
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    color: #e91e63; /* Deep pink */
+    font-size: 2.8em;
+    margin-bottom: 20px;
+}
+
+h1 .fa-heart {
+    color: #ff4081; /* Lighter pink */
+    animation: heartbeat 1.5s infinite;
+}
+
+h2 {
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 1.5em;
+}
+
+#options-container {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.option-label {
+    display: block;
+    background-color: #fce4ec; /* Light pink */
+    padding: 15px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-weight: 400;
+}
+
+.option-label:hover {
+    background-color: #f8bbd0; /* Slightly darker pink */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.option-label input[type="radio"] {
+    display: none; /* Hide actual radio button */
+}
+
+.option-label input[type="radio"]:checked + span {
+    font-weight: 600;
+    color: #c2185b; /* Darker pink for selected text */
+}
+.option-label.selected {
+    background-color: #f06292; /* Pink accent */
+    color: white;
+    border-color: #ad1457;
+    font-weight: 600;
+}
+
+
+button {
+    background-color: #ff4081; /* Pink accent */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+}
+button:hover {
+    background-color: #f50057; /* Darker pink */
+    transform: translateY(-2px);
+}
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+#prev-btn {
+    background-color: #757575; /* Grey for previous */
+    margin-right: 10px;
+}
+#prev-btn:hover {
+    background-color: #505050;
+}
+
+
+.warning-message {
+    background-color: #fff1f0;
+    color: #d93025;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    font-weight: bold;
+}
+
+/* Progress Bar */
+#progress-bar-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    height: 20px;
+    overflow: hidden;
+}
+#progress-bar {
+    height: 100%;
+    width: 0%; /* Initial width */
+    background-color: #4CAF50; /* Green */
+    border-radius: 10px;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+    transition: width 0.5s ease-in-out;
+}
+#progress-text {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.text-answer-input {
+    width: calc(100% - 22px); /* Adjust width to fit padding and border */
+    padding: 12px 10px;
+    margin-top: 10px;
+    border: 2px solid #f06292; /* Pink border */
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    color: #555;
+    box-sizing: border-box; /* Important for width calculation */
+}
+.text-answer-input:focus {
+    outline: none;
+    border-color: #c2185b; /* Darker pink on focus */
+    box-shadow: 0 0 5px rgba(240, 98, 146, 0.5);
+}
+
+
+/* Loading Page Specific Styles */
+.loading-page {
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple-blue gradient */
+}
+.loading-container {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.loading-container h2 {
+    font-family: 'Pacifico', cursive;
+    color: #6a11cb;
+    font-size: 2.2em;
+}
+.heart-loader .fa-heart {
+    font-size: 6em;
+    color: #ff4081;
+    animation: pulse 1s infinite;
+}
+
+/* Results Page Specific Styles */
+.results-page {
+    background: linear-gradient(to bottom right, #6a0dad, #e91e63, #ff7e5f, #feb47b);
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
+}
+.result-card {
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    padding: 40px;
+}
+.result-header {
+    font-family: 'Anton', sans-serif; /* Impactful font */
+    font-size: 2.8em;
+    color: #ffc107; /* Yellow/Gold */
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+.result-subtitle {
+    font-size: 1em;
+    color: #757575;
+    margin-bottom: 25px;
+    font-style: italic;
+}
+.compatibility-section {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.6em;
+    color: #e91e63; /* Main pink */
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+.name-highlight-user, .name-highlight-partner {
+    font-weight: 700;
+}
+.name-highlight-user {
+    color: #e91e63; /* User's name in pink */
+}
+.name-highlight-partner {
+    color: #00bcd4; /* Partner's name in cyan - as in image */
+}
+
+.percentage {
+    font-family: 'Anton', sans-serif;
+    font-size: 5em;
+    color: #00bcd4; /* Cyan - as in image */
+    margin: 10px 0;
+    animation: popIn 0.5s ease-out;
+}
+.encouragement-text {
+    font-size: 1.1em;
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    border-left: 4px solid #f06292;
+    padding-left: 15px;
+}
+.encouragement-text p {
+    margin-bottom: 12px;
+}
+.encouragement-text .fa-heartbeat, .encouragement-text .fa-grin-hearts {
+    color: #e91e63;
+}
+
+#restart-quiz-btn {
+    background-color: #00bcd4; /* Cyan */
+}
+#restart-quiz-btn:hover {
+    background-color: #0097a7; /* Darker cyan */
+}
+
+
+/* Animations */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body { padding: 10px; }
+    .quiz-container, .result-card { padding: 20px; }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.2em; }
+    .option-label { padding: 12px 15px; }
+    button { padding: 12px 25px; font-size: 1em; }
+    .result-header { font-size: 2em; }
+    .compatibility-section { font-size: 1.3em; }
+    .percentage { font-size: 3.5em; }
+    .encouragement-text { font-size: 1em; }
+}

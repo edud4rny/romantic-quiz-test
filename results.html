@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado del Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&family=Anton&display=swap" rel="stylesheet">
+</head>
+<body class="results-page">
+    <div class="result-card">
+        <div class="result-header">
+            RESULTADO DEL TEST
+        </div>
+        <div class="result-subtitle" id="questions-answered-text">
+            <!-- X de X preguntas contestadas -->
+        </div>
+
+        <div class="compatibility-section">
+            USTED <span id="user-name-placeholder" class="name-highlight-user"></span>
+            ES COMPATIBLE AL
+            <div class="percentage">
+                100%
+            </div>
+            CON <span id="partner-name-placeholder" class="name-highlight-partner"></span>
+        </div>
+
+        <div class="encouragement-text">
+            <p>Le recomiendo que se abra a las posibilidades, ¡sólo se vive una vez!</p>
+            <p>No le tenga miedo al amor <i class="fas fa-heartbeat"></i>. A veces, lo que más anhelamos está justo frente a nosotros.</p>
+            <p>Las verdaderas conexiones no se encuentran todos los días.</p>
+            <p>Confíe en sus sentimientos, que vale la pena vivir <i class="fas fa-grin-hearts"></i>.</p>
+        </div>
+        <button id="restart-quiz-btn">Hacer el test de nuevo <i class="fas fa-redo"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userName = urlParams.get('user') || 'Afortunad@';
+            const partnerName = urlParams.get('partner') || 'Alguien Especial';
+            const totalQuestions = localStorage.getItem('totalQuizQuestions') || 'algunas';
+
+
+            document.getElementById('user-name-placeholder').textContent = userName.toUpperCase();
+            document.getElementById('partner-name-placeholder').textContent = partnerName.toUpperCase();
+            document.getElementById('questions-answered-text').textContent = `${totalQuestions} de ${totalQuestions} preguntas contestadas`;
+
+            const restartButton = document.getElementById('restart-quiz-btn');
+            if (restartButton) {
+                restartButton.addEventListener('click', () => {
+                    localStorage.removeItem('quizUserName'); // Clear stored name
+                    localStorage.removeItem('quizUserAnswers');
+                    localStorage.removeItem('totalQuizQuestions');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
